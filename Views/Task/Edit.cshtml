@@ -1,0 +1,176 @@
+﻿@model Task_Manager.Models.TaskViewModel
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+        /* Background and Page Styling */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #B87D4B, #855C40,#523A34); /* Warm peach gradient */
+            background-attachment: fixed;
+            color: #333;
+            padding-top: 50px;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Container */
+        .task-form {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Label Styling */
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Input Fields */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            font-size: 1rem;
+            color: #495057;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus {
+                border-color: #fda085; /* Warm peach */
+                box-shadow: 0 0 8px rgba(253, 160, 133, 0.3);
+            }
+
+            /* Dropdown Styling */
+            .form-control:focus, select:focus {
+                border-color: #fda085;
+                box-shadow: 0 0 8px rgba(253, 160, 133, 0.3);
+            }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #f6d365;
+            border-color: #f6d365;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+            .btn-primary:hover {
+                background-color: #fda085;
+                border-color: #fda085;
+                transform: scale(1.05);
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+                border-color: #5a6268;
+                transform: scale(1.05);
+            }
+
+        /* Validation Styling */
+        .text-danger {
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+
+        /* Spacer between the form and footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            text-align: center;
+            background-color: #003459;
+            color: white;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+        <main role="main">
+            <h1>@ViewData["Title"]</h1>
+
+            <div class="task-form">
+                <form asp-action="Edit" method="post">
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Task Title</label>
+                        <input asp-for="Title" class="form-control" placeholder="Enter task title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Task Description</label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Describe the task" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AssignDate" class="control-label">Assign Date</label>
+                        <input asp-for="AssignDate" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="AssignDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="control-label">End Date</label>
+                        <input asp-for="EndDate" type="date" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+
+                <div class="form-group text-center">
+                    <a href="@Url.Action("Index", "Task")" class="btn btn-secondary">Back to Task List</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

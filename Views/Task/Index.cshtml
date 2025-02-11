@@ -1,0 +1,185 @@
+﻿@model IEnumerable<Task_Manager.Data.Models.Task>
+
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<!-- Main Section for Task List -->
+<div class="task-list-section">
+    <h1 class="header-title">@ViewData["Title"]</h1>
+
+    <!-- Action Button -->
+    <div class="action-buttons">
+        <a href="@Url.Action("Create", "Task")" class="btn btn-primary btn-lg">Create New Task</a>
+    </div>
+
+    <!-- Task Table Section -->
+    <div class="task-table-card">
+        <div class="card-header">
+            <h2>Task Overview</h2>
+        </div>
+        <div class="card-body">
+            <table class="task-table table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Assign Date</th>
+                        <th>End Date</th>
+                        <th>Assigned Employee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.Title</td>
+                            <td>@task.Description</td>
+                            <td>@task.AssignDate.ToString("MMM dd, yyyy")</td>
+                            <td>@task.EndDate.ToString("MMM dd, yyyy")</td>
+                            <td>@task.EmployeeTasks.FirstOrDefault()?.Employee?.Name</td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Task", new { id = task.ID })" class="btn btn-warning btn-sm" title="Edit Task">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a href="@Url.Action("Delete", "Task", new { id = task.ID })" class="btn btn-danger btn-sm" title="Delete Task">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styling -->
+<style>
+    /* Background */
+    body {
+        font-family: 'Poppins', Arial, sans-serif;
+        background: linear-gradient(135deg, #DC7278, #DA4450,#EBBAB9);
+        color: #333;
+        margin-top: 0;
+    }
+
+    /* Task List Header */
+    .header-title {
+        font-size: 42px;
+        font-weight: 700;
+        color: #ffffff;
+        text-align: center;
+        margin-top: 50px; 
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Action Buttons Styling */
+    .action-buttons {
+        text-align: center;
+        margin-bottom: 30px; /* Adjusted margin to keep space around the button */
+    }
+
+    .btn-primary {
+        background-color: #f39c12;
+        border-color: #f39c12;
+        font-weight: 600;
+        border-radius: 5px;
+        padding: 12px 30px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #e67e22;
+            border-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+    /* Task Table Section */
+    .task-table-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 1.5rem;
+        padding: 18px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    .task-table th, .task-table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 12px;
+    }
+
+    .task-table th {
+        background-color: #f4f7fa;
+        color: #2f3e4e;
+        font-weight: 600;
+    }
+
+    /* Table Styling */
+    .task-table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+        .task-table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    /* Button Styling */
+    .btn {
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
+    }
+
+    .btn-sm {
+        padding: 8px 15px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+            transform: scale(1.05);
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #c82333;
+            transform: scale(1.05);
+        }
+
+    /* Icon styling inside buttons */
+    .btn i {
+        margin-right: 5px;
+    }
+</style>
