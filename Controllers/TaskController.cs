@@ -7,7 +7,8 @@ using Task_Manager.Data.Models;
 using Task_Manager.Models;
 using Task_Manager.Data;
 using Task = Task_Manager.Data.Models.Task;
-using static Task_Manager.Common.Manager;
+using static Task_Manager.Common.AdminUser;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskManager.Controllers
 {
@@ -31,6 +32,7 @@ namespace TaskManager.Controllers
         }
 
         // Create: Display the Create Task form
+        [Authorize(Roles = AdminRoleName)]
         public IActionResult Create()
         {
             var viewModel = new TaskViewModel
@@ -42,6 +44,7 @@ namespace TaskManager.Controllers
 
         // Create: Handle the POST request to create a new task
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TaskViewModel model)
         {

@@ -5,6 +5,8 @@ using Task_Manager.Data.Models;
 using Task_Manager.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using static Task_Manager.Common.AdminUser;
 
 namespace Task_Manager.Controllers
 {
@@ -18,6 +20,7 @@ namespace Task_Manager.Controllers
         }
 
         // GET: Employee/Create
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Create()
         {
             // Fetch the list of departments from the database to populate the dropdown
@@ -34,6 +37,7 @@ namespace Task_Manager.Controllers
 
         // POST: Employee/Create
         [HttpPost]
+        [Authorize(Roles = AdminRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeeViewModel model)
         {

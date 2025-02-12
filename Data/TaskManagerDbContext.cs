@@ -12,7 +12,7 @@ namespace Task_Manager.Data
         public TaskManagerDbContext(DbContextOptions<TaskManagerDbContext> options)
             : base(options)
         {
-            Database.Migrate();
+            //Database.Migrate();
         }
 
         public DbSet<Task> Tasks { get; set; }
