@@ -20,7 +20,6 @@ namespace Task_Manager.Controllers
         }
 
         // GET: Employee/Create
-        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Create()
         {
             // Fetch the list of departments from the database to populate the dropdown

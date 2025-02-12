@@ -32,7 +32,6 @@ namespace TaskManager.Controllers
         }
 
         // Create: Display the Create Task form
-        [Authorize(Roles = AdminRoleName)]
         public IActionResult Create()
         {
             var viewModel = new TaskViewModel
