@@ -37,17 +37,6 @@ namespace Task_Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeeViewModel model)
         {
-            // Check if the model state is valid (this checks for validation attributes)
-            //if (!ModelState.IsValid)
-            //{
-            //    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            //    {
-            //        Console.WriteLine(error.ErrorMessage);
-            //    }
-            //    model.Departments = await _context.Departments.ToListAsync();
-            //    return View(model);
-            //}
-
             if (ModelState.IsValid)
             {
                 // Create a new employee entity and save it to the database

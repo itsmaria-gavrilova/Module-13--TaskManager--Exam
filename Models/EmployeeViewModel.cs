@@ -13,6 +13,7 @@ namespace Task_Manager.Models
 
         public int? DepartmentID { get; set; }
 
+
         // List of tasks assigned to this employee
         //public List<Task> Tasks { get; set; }
 
