@@ -20,6 +20,7 @@ namespace Task_Manager.Controllers
         }
 
         // GET: Employee/Create
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Create()
         {
             // Fetch the list of departments from the database to populate the dropdown
@@ -36,7 +37,6 @@ namespace Task_Manager.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        [Authorize(Roles = AdminRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EmployeeViewModel model)
         {
@@ -64,6 +64,7 @@ namespace Task_Manager.Controllers
         }
 
         // GET: Employee/Index
+
         public async Task<IActionResult> Index()
         {
             // Fetch all employees from the database
@@ -71,6 +72,7 @@ namespace Task_Manager.Controllers
             return View(employees);
         }
 
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             var employee = await _context.Employees.Include(t => t.EmployeeTasks)

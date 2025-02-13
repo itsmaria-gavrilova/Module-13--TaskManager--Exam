@@ -26,7 +26,7 @@ namespace Task_Manager.Data
         {
             base.OnModelCreating(modelBuilder);
             SeedDatabase(modelBuilder);
-            //SeedDepartments(modelBuilder);
+            SeedDepartments(modelBuilder);
             // Define the many-to-many relationship between Employee and Task via EmployeeTask
             modelBuilder.Entity<EmployeeTask>()
                 .HasKey(et => new { et.EmployeeID, et.TaskID });
@@ -67,25 +67,25 @@ namespace Task_Manager.Data
             modelBuilder.Entity<IdentityUser>()
                 .HasData(TestUser, AdminUser);
         }
-        //private void SeedDepartments(ModelBuilder modelBuilder)
-        //{
-        //    Department department1 = new Department()
-        //    {
-        //        ID = 1,
-        //        Name = "Software"
-        //    };
-        //    Department department2 = new Department()
-        //    {
-        //        ID = 2,
-        //        Name = "Hardware"
-        //    };
-        //    Department department3 = new Department()
-        //    {
-        //        ID = 3,
-        //        Name = "Engineering"
-        //    };
-        //    modelBuilder.Entity<Department>()
-        //        .HasData(department1, department2,department3);
-        //}
+        private void SeedDepartments(ModelBuilder modelBuilder)
+        {
+            Department department1 = new Department()
+            {
+                ID = 1,
+                Name = "Software"
+            };
+            Department department2 = new Department()
+            {
+                ID = 2,
+                Name = "Hardware"
+            };
+            Department department3 = new Department()
+            {
+                ID = 3,
+                Name = "Engineering"
+            };
+            modelBuilder.Entity<Department>()
+                .HasData(department1, department2, department3);
+        }
     }
 }

@@ -16,8 +16,6 @@ namespace Task_Manager.Data.Models
         public Department Department { get; set; }
 
         public ICollection<EmployeeTask> EmployeeTasks { get; set; }
-        [Required]
-        public string UserID { get; set; } = null!;
-        public IdentityUser User { get; set; } = null!;
+
     }
 }

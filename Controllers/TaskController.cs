@@ -32,6 +32,7 @@ namespace TaskManager.Controllers
         }
 
         // Create: Display the Create Task form
+        [Authorize(Roles = AdminRoleName)]
         public IActionResult Create()
         {
             var viewModel = new TaskViewModel
@@ -43,7 +44,6 @@ namespace TaskManager.Controllers
 
         // Create: Handle the POST request to create a new task
         [HttpPost]
-        [Authorize(Roles = AdminRoleName)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TaskViewModel model)
         {
@@ -85,6 +85,7 @@ namespace TaskManager.Controllers
         }
 
         // Edit: Display the Edit Task form
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Edit(int id)
         {
             var task = await _context.Tasks.Include(t => t.EmployeeTasks)
@@ -156,6 +157,7 @@ namespace TaskManager.Controllers
         }
 
         // Delete: Display the Delete Task confirmation form
+        [Authorize(Roles = AdminRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             var task = await _context.Tasks.Include(t => t.EmployeeTasks)
@@ -218,26 +220,6 @@ namespace TaskManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Mark task as completed (for employees)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MarkTaskAsCompleted(int taskId, int employeeId)
-        {
-            var employeeTask = await _context.EmployeeTasks
-                                              .FirstOrDefaultAsync(et => et.TaskID == taskId && et.EmployeeID == employeeId);
-
-            if (employeeTask == null)
-            {
-                return NotFound();
-            }
-
-            employeeTask.IsCompleted = true;
-            _context.Update(employeeTask);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(EmployeeTasks), new { employeeId });
-        }
-
         // View tasks assigned to an employee (for employees)
         public async Task<IActionResult> EmployeeTasks(int employeeId)
         {
@@ -257,9 +239,7 @@ namespace TaskManager.Controllers
             {
                 ID = employee.ID,
                 Name = employee.Name,
-                DepartmentID = employee.Department?.ID,
-                //Tasks = tasks,
-                TaskStatus = employee.EmployeeTasks.ToDictionary(et => et.TaskID, et => et.IsCompleted) // Track task completion
+                DepartmentID = employee.Department?.ID           
             };
 
             return View(viewModel);
